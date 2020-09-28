@@ -4,7 +4,7 @@
 // Steps of making a password generator
 // first we will need a prompt after clicking the generate password button stating How many characters would you like to use from 8 to 128?
 // next we will need a confirm stating all uppercase true or false, lowercase true or false, numbers true or false, and symbols/special chars true or false!
-// then we will need to output the user selections then print the password in the box!
+// then we will need to output the user selections to the console log and then print the password in the box!
 var generateBtn = document.querySelector("#generate").addEventListener("click", writePassword);
 
 // defining variables
