@@ -35,18 +35,18 @@ function generatePassword() {
   console.log("Your password will be " + confirmPass + " characters long");
 
   // confirm statements for uppercase etc.
-  upperOutput = confirm("Would you like to use Uppercase letters?");
-  lowerOutput = confirm("Would you like to use Lowercase letters?");
-  numberOutput = confirm("Would you like to use numbers?");
-  symbolOutput = confirm("Would you like to use Special Characters?");
+  upperOutput = confirm("Click ok to use Uppercase letters?");
+  lowerOutput = confirm("Click ok to use Lowercase letters?");
+  numberOutput = confirm("Click ok to use numbers?");
+  symbolOutput = confirm("Click ok to use Special Characters?");
   // while loop asking the user to select a parameter
   while (!(upperOutput || lowerOutput || numberOutput || symbolOutput)) {
     alert("You must select at least one character type");
     // if none is selected loop will repeat
-    upperOutput = confirm("Would you like to use Uppercase letters?");
-    lowerOutput = confirm("Would you like to use Lowercase letters?");
-    numberOutput = confirm("Would you like to use numbers?");
-    symbolOutput = confirm("Would you like to use Special Characters?");
+    upperOutput = confirm("Click ok to use Uppercase letters?");
+    lowerOutput = confirm("Click ok to use Lowercase letters?");
+    numberOutput = confirm("Click ok to use numbers?");
+    symbolOutput = confirm("Click ok to use Special Characters?");
   }
 }
     // empty array
