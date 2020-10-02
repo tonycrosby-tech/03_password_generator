@@ -1,4 +1,4 @@
-<a href="http://tonycrosby.net/02_CSS_Bootstrap"><img src="./assets/Capture.JPG" title="password generator" alt="Password Generator"></a>
+<a href="http://tonycrosby.net/03_password_generator"><img src="./assets/Capture.JPG" title="password generator" alt="Password Generator"></a>
 
 ***Tony Crosby***
 
