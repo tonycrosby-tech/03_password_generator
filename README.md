@@ -4,7 +4,7 @@
 
 # 03_Password_Generator
 
-> This project was my first javascript program the link to get to it is <a href="https://tonycrosby.net/03_password_generator" rel="password_generator">here</a> the repository link is <a href="https://github.com/tonycrosby-tech/03_password_generator" rel="repository">here</a>
+> This project was my first javascript program the link to get to it is <a href="https://tonycrosby-tech.github.io/03_password_generator/" rel="password_generator">here</a> the repository link is <a href="https://github.com/tonycrosby-tech/03_password_generator" rel="repository">here</a>
 
 ```
 GIVEN I need a new, secure password
