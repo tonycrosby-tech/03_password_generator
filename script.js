@@ -1,91 +1,101 @@
 // 03_password_generator
 // Assignment Code
 
-// Steps of making a password generator
-// first we will need a prompt after clicking the generate password button stating How many characters would you like to use from 8 to 128?
-// next we will need a confirm stating all uppercase true or false, lowercase true or false, numbers true or false, and symbols/special chars true or false!
-// then we will need to output the user selections to the console log and then print the password in the box!
-var generateBtn = document.querySelector("#generate").addEventListener("click", writePassword);
+const generateBtn = document.querySelector("#generate").addEventListener("click", writePassword);
 
-// defining variables
-var confirmPass = "";
-var upperOutput;
-var lowerOutput;
-var numberOutput;
-var symbolOutput;
+// Character sets
+const UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
+const LOWERCASE = "abcdefghijklmnopqrstuvwxyz".split('');
+const NUMBERS = "0123456789".split('');
+const SYMBOLS = "!%&,*+-./<>?~".split('');
 
-//defining the arrays of the variables
-var uppercase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-var lowercase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-var symbols = ["!", "%", "&", ",", "*", "+", "-", ".", "/", "<", ">", "?","~"];
-
-//generate password
+// Generate password
 function generatePassword() {
-  // set password length and prompt for how many characters?
-  confirmPass = (prompt("How many characters would you like to use? Please enter a number between 8 and 128!")); {
-    // stringfromcharcode makes it so no letter or invalid char can be used as a character!
-    while (confirmPass < String.fromCharCode(0,47) || confirmPass > String.fromCharCode(58,127)
-     || confirmPass < 8 || confirmPass > 128) {
-      // alert to try again if invalid value is entered
-      alert("Password must be 8 to 128 characters! Please try again");
-      confirmPass = (prompt("How many characters would you like to use? Please enter a number between 8 and 128!"));
-  }
-  // your password will be () long in console log
-  console.log("Your password will be " + confirmPass + " characters long");
+  const passLength = parseInt(document.querySelector("#length").value); // Get password length from input
 
-  // confirm statements for uppercase etc.
-  upperOutput = confirm("Click ok to use Uppercase letters");
-  lowerOutput = confirm("Click ok to use Lowercase letters");
-  numberOutput = confirm("Click ok to use numbers");
-  symbolOutput = confirm("Click ok to use Special Characters");
-  // while loop asking the user to select a parameter
-  while (!(upperOutput || lowerOutput || numberOutput || symbolOutput)) {
-    alert("You must select at least one character type");
-    // if none is selected loop will repeat
-    upperOutput = confirm("Click ok to use Uppercase letters");
-    lowerOutput = confirm("Click ok to use Lowercase letters");
-    numberOutput = confirm("Click ok to use numbers");
-    symbolOutput = confirm("Click ok to use Special Characters");
+  if (passLength < 8 || passLength > 128) {
+    alert("Password length must be between 8 and 128 characters.");
+    return "";
   }
+
+  const charTypes = {
+    useUppercase: document.querySelector("#uppercase").checked,
+    useLowercase: document.querySelector("#lowercase").checked,
+    useNumbers: document.querySelector("#numbers").checked,
+    useSymbols: document.querySelector("#symbols").checked
+  };
+
+  if (!charTypes.useUppercase && !charTypes.useLowercase && !charTypes.useNumbers && !charTypes.useSymbols) {
+    alert("Please select at least one character type.");
+    return "";
+  }
+
+  const allChars = getAllChars(charTypes);
+  const randomPass = generateRandomPassword(passLength, allChars);
+
+  return randomPass;
 }
-    // empty array
-    var allChars = [];
-    // if statement saying to the computer to add special characters if it's selected
-    if (symbolOutput) {
-      allChars = allChars.concat(symbols)
-    }
-    // if statement saying to the computer to add numbers if it's selected
-    if (numberOutput) {
-      allChars = allChars.concat(numbers)
-    }
-    // if statement saying to the computer to add lowercase letters if it's selected  
-    if (lowerOutput) {
-      allChars = allChars.concat(lowercase)
-    }
-    // if statement saying to the computer to add uppercase letters if it's selected
-    if (upperOutput) {
-      allChars = allChars.concat(uppercase)
-    }
-    // console will log allChars 
-    console.log(allChars);
-    //empty variable
-    var randomPass = "";
-    // for loop for the password to be randomized 
-    for (var i = 0; i < confirmPass; i++) {
-      randomPass = randomPass + allChars[Math.floor(Math.random() * allChars.length)];
-      console.log(randomPass);
-    }
-    return randomPass;
 
+// Get all characters based on user selection
+function getAllChars({ useUppercase, useLowercase, useNumbers, useSymbols }) {
+  let allChars = [];
+  if (useUppercase) allChars = allChars.concat(UPPERCASE);
+  if (useLowercase) allChars = allChars.concat(LOWERCASE);
+  if (useNumbers) allChars = allChars.concat(NUMBERS);
+  if (useSymbols) allChars = allChars.concat(SYMBOLS);
+
+  console.log(allChars);
+  return allChars;
+}
+
+// Generate random password
+function generateRandomPassword(length, allChars) {
+  let password = "";
+  for (let i = 0; i < length; i++) {
+    password += allChars[crypto.getRandomValues(new Uint32Array(1))[0] % allChars.length];
+  }
+  return password;
 }
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
+  const passwordText = document.querySelector("#password");
 
-  var passwordText = document.querySelector("#password");
+  const password = generatePassword();
 
-  passwordText.value = password;
-
+  if (!password) {
+    passwordText.value = "";
+  } else {
+    passwordText.value = password;
+  }
 }
+
+// Add event listener to refresh button
+document.querySelector("#refresh").addEventListener("click", refreshPassword);
+
+// Refresh password and copy to clipboard
+function refreshPassword() {
+  const passwordText = document.querySelector("#password");
+  console.log(passwordText)
+  if (!passwordText.value) {
+    alert("No password to copy. Please generate a password first.");
+    return;
+  }
+}
+
+// Copy password to clipboard
+function copyPassword() {
+  const passwordText = document.querySelector("#password");
+  passwordText.select();
+  passwordText.setSelectionRange(0, 99999); // For mobile devices
+
+  try {
+    document.execCommand("copy");
+    alert("Password copied to clipboard!");
+  } catch (err) {
+    alert("Failed to copy password.");
+  }
+}
+
+// Add event listener to copy button
+document.querySelector("#copy").addEventListener("click", copyPassword);
