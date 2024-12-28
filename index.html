@@ -4,28 +4,116 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Password Generator</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Simple Password Generator</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
   </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>Password Generator</h1>
+  <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
+      <header class="mb-4">
+        <h1 class="text-2xl font-bold text-center">Simple Password Generator</h1>
       </header>
       <div class="card">
-        <div class="card-header">
-          <h2>Generate a Password</h2>
+        <div class="card-header mb-4">
+          <h2 class="text-xl font-semibold text-center">
+            Generate a Secure Password
+          </h2>
         </div>
-        <div class="card-body">
+        <div class="card-body mb-4">
           <textarea
             readonly
             id="password"
             placeholder="Your Secure Password"
             aria-label="Generated Password"
+            class="w-full p-2 border border-gray-300 rounded"
           ></textarea>
         </div>
         <div class="card-footer">
-          <button id="generate" class="btn">Generate Password</button>
+          <div class="form-group mb-4">
+            <label for="length">Password Length:</label>
+            <input
+              type="range"
+              id="length"
+              name="length"
+              min="8"
+              max="128"
+              value="8"
+              oninput="this.nextElementSibling.value = this.value"
+            />
+            <output>8</output>
+          </div>
+          <div class="form-group mb-4">
+            <label for="uppercase" class="inline-flex items-center">
+              <input
+                type="checkbox"
+                id="uppercase"
+                name="uppercase"
+                
+                class="form-checkbox"
+              />
+              <span class="ml-2">Include Uppercase Letters</span>
+            </label>
+          </div>
+          <div class="form-group mb-4">
+            <label for="lowercase" class="inline-flex items-center">
+              <input
+                type="checkbox"
+                id="lowercase"
+                name="lowercase"
+                
+                class="form-checkbox"
+              />
+              <span class="ml-2">Include Lowercase Letters</span>
+            </label>
+          </div>
+          <div class="form-group mb-4">
+            <label for="numbers" class="inline-flex items-center">
+              <input
+                type="checkbox"
+                id="numbers"
+                name="numbers"
+                
+                class="form-checkbox"
+              />
+              <span class="ml-2">Include Numbers</span>
+            </label>
+          </div>
+          <div class="form-group mb-4">
+            <label for="symbols" class="inline-flex items-center">
+              <input
+                type="checkbox"
+                id="symbols"
+                name="symbols"
+                
+                class="form-checkbox"
+              />
+              <span class="ml-2">Include Symbols</span>
+            </label>
+          </div>
+          <div class="flex space-x-2">
+            <button
+              id="generate"
+              class="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600"
+            >
+              Generate Password
+            </button>
+                        <button
+              id="copy"
+              class="w-full py-2 px-4 bg-green-500 text-white font-semibold rounded hover:bg-green-600"
+            >
+              Copy
+            </button>
+            <button
+              id="refresh"
+              class="w-full py-2 px-4 bg-gray-500 text-white font-semibold rounded hover:bg-gray-600"
+              onclick="location.reload()"
+            >
+              Refresh
+            </button>
+            
+          </div>
         </div>
       </div>
     </div>
