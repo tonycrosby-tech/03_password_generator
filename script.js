@@ -86,6 +86,12 @@ function refreshPassword() {
 // Copy password to clipboard
 function copyPassword() {
   const passwordText = document.querySelector("#password");
+
+  if (!passwordText.value) {
+    alert("No password to copy. Please generate a password first.");
+    return;
+  }
+
   passwordText.select();
   passwordText.setSelectionRange(0, 99999); // For mobile devices
 
